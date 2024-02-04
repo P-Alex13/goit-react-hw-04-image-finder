@@ -1,11 +1,10 @@
 import 'react-toastify/dist/ReactToastify.css';
 
 import { ImageInfo, Searchbar } from 'components';
+import { AppStyled } from 'components/App.styled';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { ToastContainer } from 'react-toastify';
-
-import { AppStyled } from './App.styled';
 
 export const App = () => {
   const [name, setName] = useState('');
