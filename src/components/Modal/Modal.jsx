@@ -1,29 +1,29 @@
-import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
+import PT from 'prop-types';
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 import { ModalStyled, Overlay } from './Modal.styled';
 
+const modalRoot = document.getElementById('modal-root');
+
 const Modal = ({ onClose, children }) => {
-  const modalRoot = document.getElementById('modal-root');
-
   useEffect(() => {
-    const handleKeydown = e => {
-      if (e.code === 'Escape') onClose();
-    };
-
-    const handleOutsideClick = event => {
-      if (event.target === event.currentTarget) onClose();
-    };
-
     window.addEventListener('keydown', handleKeydown);
-    return () => {
+    return function cleanup() {
       window.removeEventListener('keydown', handleKeydown);
     };
-  }, [onClose]);
+  }, []);
+
+  const handleKeydown = e => {
+    if (e.code === 'Escape') onClose();
+  };
+
+  const onBackdropClick = event => {
+    if (event.currentTarget === event.target) onClose();
+  };
 
   return createPortal(
-    <Overlay onClick={handleOutsideClick}>
+    <Overlay onClick={onBackdropClick}>
       <ModalStyled>{children}</ModalStyled>
     </Overlay>,
     modalRoot
@@ -31,8 +31,8 @@ const Modal = ({ onClose, children }) => {
 };
 
 Modal.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
+  onClose: PT.func,
+  children: PT.node,
 };
 
 export default Modal;

@@ -1,17 +1,17 @@
 import { ImageGalleryList, Modal } from 'components';
 import PT from 'prop-types';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { ImageLarge } from './ImageGallery.styled';
 
 const ImageGallery = ({ images }) => {
   const [showModal, setShowModal] = useState(false);
-  const [largeImageURL, setlargeImageURL] = useState('');
+  const [largeImageURL, setLargeImageURL] = useState('');
   const [tags, setTags] = useState('');
 
   const toggleModal = (largeImageURL, tags) => {
     setShowModal(!showModal);
-    setlargeImageURL(largeImageURL);
+    setLargeImageURL(largeImageURL);
     setTags(tags);
   };
 
@@ -19,17 +19,18 @@ const ImageGallery = ({ images }) => {
     <>
       <ImageGalleryList images={images} toggleModal={toggleModal} />
       {showModal && (
-        <Modal onClose={() => setShowModal(false)}>
+        <Modal onClose={toggleModal}>
           <ImageLarge src={largeImageURL} alt={tags} />
         </Modal>
       )}
     </>
   );
 };
+
+export default ImageGallery;
+
 ImageGallery.propTypes = {
   images: PT.array.isRequired,
   largeImg: PT.string,
   tags: PT.string,
 };
-
-export default ImageGallery;

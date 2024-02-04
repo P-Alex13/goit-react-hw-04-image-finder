@@ -1,5 +1,5 @@
 import PT from 'prop-types';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { BiSearchAlt2 } from 'react-icons/bi';
 import { toast } from 'react-toastify';
 
@@ -11,12 +11,12 @@ import {
   SearchFormInput,
 } from './Searchbar.styled';
 
-export const Searchbar = ({ onSubmit }) => {
+const Searchbar = ({ onSubmit }) => {
   const [name, setName] = useState('');
 
   const onInputChange = e => {
-    const inputValue = e.currentTarget.value;
-    setName(inputValue.toLowerCase());
+    const inputName = e.currentTarget.value;
+    setName(inputName.toLowerCase());
   };
 
   const onFormSubmit = e => {
@@ -26,10 +26,6 @@ export const Searchbar = ({ onSubmit }) => {
       ? onSubmit(name)
       : toast.error('🥺 Please enter a picture name');
 
-    reset();
-  };
-
-  const reset = () => {
     setName('');
   };
 
@@ -60,8 +56,8 @@ export const Searchbar = ({ onSubmit }) => {
   );
 };
 
+export default Searchbar;
+
 Searchbar.propTypes = {
   onSubmit: PT.func.isRequired,
 };
-
-export default Searchbar;

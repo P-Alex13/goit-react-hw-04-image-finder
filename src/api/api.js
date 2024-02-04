@@ -4,7 +4,6 @@ const URL = `https://pixabay.com/api/`;
 const API_KEY = '40876649-e14b6ea7b41694cd36b83fc87';
 
 export const onSearch = (name, page) => {
-  console.log('Căutare pentru:', name);
   const response = axios.get(`${URL}`, {
     params: {
       key: API_KEY,
