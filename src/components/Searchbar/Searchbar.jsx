@@ -59,6 +59,7 @@ export const Searchbar = ({ onSubmit }) => {
     </Header>
   );
 };
+
 Searchbar.propTypes = {
   onSubmit: PT.func.isRequired,
 };
